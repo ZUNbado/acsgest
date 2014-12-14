@@ -1,0 +1,9 @@
+{% for nom, tercers in data.items %}
+Tipus: {{ nom }}<br>
+{% for tercer, contractes in tercers.items %}
+Tercer: {{ tercer }}<br>
+{% for contracte in contractes %}
+Contracte: {{ contracte }}<br>
+{% endfor %}
+{% endfor %}
+{% endfor %}

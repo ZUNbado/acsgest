@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('factura', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.AlterModelOptions(
+            name='facturaexterna',
+            options={'verbose_name_plural': 'Facutres Externes'},
+        ),
+        migrations.AlterModelOptions(
+            name='facturainterna',
+            options={'verbose_name_plural': 'Factures Internes'},
+        ),
+    ]
