@@ -30,6 +30,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+#    'django_admin_bootstrapped.bootstrap3',
+#    'django_admin_bootstrapped',
+#    'bootstrap3',
+    'apps.public',
     'apps.caixa',
     'apps.contracte',
     'apps.donacio',
@@ -37,6 +41,7 @@ INSTALLED_APPS = (
     'apps.factura',
     'apps.servei',
     'apps.tercer',
+    'apps.soci',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

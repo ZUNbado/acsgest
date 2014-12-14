@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime, date
 from ..contracte.models import Contracte
+from ..tercer.models import Tercer
 
 
 class FacturaInterna(models.Model):
@@ -10,6 +11,7 @@ class FacturaInterna(models.Model):
     estat = models.BooleanField(default=False)
     contracte = models.ManyToManyField(Contracte)
     quantitat = models.DecimalField(max_digits=10, decimal_places=2,null=True,blank=True)
+    descompte = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     pagat = models.DecimalField(max_digits=5, decimal_places=2,null=True,blank=True)
     comentari = models.CharField(max_length=200,null=True,blank=True)
 
@@ -22,7 +24,7 @@ class FacturaInterna(models.Model):
         super(FacturaInterna, self).save(*args, **kwargs)
 
     def actualitza_estat(self):
-        if self.pagat == self.quantitat:
+        if self.pagat == self.quantitat + self.descompte:
             self.estat = True
         else:
             self.estat = False
@@ -57,6 +59,7 @@ class FacturaInterna(models.Model):
 
 class FacturaExterna(models.Model):
     referencia = models.CharField(max_length=200)
+    tercer = models.ForeignKey(Tercer, null=True, blank=True)
     creacio = models.DateField(default=datetime.now)
     pagament = models.DateField(null=True,blank=True)
     estat = models.BooleanField(default=False)
@@ -65,7 +68,19 @@ class FacturaExterna(models.Model):
     comentari = models.CharField(max_length=200,null=True,blank=True)
 
     def __unicode__(self):
-        return u'%d' % self.id
+        return u'%s / %s' % (self.tercer, self.referencia)
+
+
+    def actualitza_estat(self):
+        if self.pagat == self.quantitat:
+            self.estat = True
+        else:
+            self.estat = False
+
+    def save(self, *args, **kwargs):
+        self.actualitza_estat()
+        super(FacturaExterna, self).save(*args, **kwargs)
+
 
     class Meta:
         verbose_name_plural = u'Facutres Externes'
