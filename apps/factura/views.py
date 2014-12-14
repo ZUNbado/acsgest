@@ -8,6 +8,30 @@ from ..tercer.models import Tercer, Tipus
 from datetime import timedelta, date
 
 
+# TEST PDF
+import cStringIO as StringIO
+import ho.pisa as pisa
+from django.template.loader import get_template
+from django.template import Context
+#from django.http import HttpResponse
+from cgi import escape
+from django.shortcuts import get_object_or_404
+
+def render_to_pdf(template_src, context_dict):
+    template = get_template(template_src)
+    context = Context(context_dict)
+    html  = template.render(context)
+    result = StringIO.StringIO()
+
+    pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("UTF-8")), link_callback=fetch_resources, encoding='UTF-8', dest=result,)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
+
+def fetch_resources(uri, rel):
+    path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
+    return path
+
 def genera_factures(request):
     tipus_tercer = Tipus.objects.filter(nom='Soci') | Tipus.objects.filter(nom='Client')
 
@@ -45,3 +69,23 @@ def genera_factures(request):
 
     return HttpResponse(template.render(context))
 
+def descarregar_factura(request, idFactura):
+    factura = get_object_or_404(FacturaInterna, pk=int(idFactura))
+    serveis = {}
+    for c in factura.contracte.all():
+        for s in c.serveis.all():
+            if c.descompte != 0:
+                total = ((s.preu * c.multi) - ((s.preu * c.multi * c.descompte) / 100))
+            else:
+                total = (s.preu * c.multi)
+            servei = { 'nom': s.nom, 'preu': s.preu, 'periode': c.periode, 'total': total, 'descompte': c.descompte }
+            if s.pk not in serveis: serveis[s.pk]=servei
+
+    return render_to_pdf(
+            'factura/pdf.j2',
+            {
+                'pagesize' : 'A4',
+                'serveis' : serveis,
+                'factura' : factura,
+            }
+            )

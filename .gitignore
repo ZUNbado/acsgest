@@ -52,7 +52,9 @@ docs/_build/
 
 # PyBuilder
 target/
-
+#
+# Local images
+media/
 # local database
 db.sqlite3
 my.cnf

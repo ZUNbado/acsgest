@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>My Title</title>
+        <style type="text/css">
+            @page {
+                size: {{ pagesize }};
+                margin: 1cm;
+                @frame footer {
+                    -pdf-frame-content: footerContent;
+                    bottom: 0cm;
+                    margin-left: 9cm;
+                    margin-right: 9cm;
+                    height: 1cm;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+                <table>
+                        <tr><td>Dades ACS</td><td>LOGO<img style="zoom: 80%;" src="http://127.0.0.1:8000/media/logo_acs_logo1.jpg" /></td>
+                </table>
+                <br /><br />
+                <table>
+                        <tr><td>Dades soci</td><td>Dades Factura</td></tr>
+                        <tr>
+                                <td>
+                                        <table>
+                                                <tr><td>Nom:</td><td><td>nom</td>
+                                                <tr><td>Nom:</td><td><td>nom</td>
+                                                <tr><td>Nom:</td><td><td>nom</td>
+                                        </table>
+                                </td>
+                                <td>
+                                        <table>
+                                                <tr><td>Referencia</td><td>{{ factura.referencia }}</td></tr>
+                                                <tr><td>Data</td><td>{{ factura.creacio }}</td></tr>
+                                                <tr><td>Comentari</td><td>{{ factura.comentari }}</td></tr>
+                                        </table>
+                                </td>
+                        </tr>
+                </table>
+                <br /><br />
+                <table>
+                        <tr><td>Servei</td><td>Preu</td><td>Periode</td><td>Descompte</td><td>Total</td></tr>
+                        {% for key, s in serveis.items %}
+                        <tr><td>{{ s.nom }}</td><td>{{ s.preu }}</td><td>{{ s.periode }}</td><td>{{ s.descompte }}</td><td>{{ s.total }}</td></tr>
+                        {% endfor %}
+                        <tr><td colspan="3">&nbsp;</td><td>Total:</td><td>{{ factura.quantitat }}</td></tr>
+                </table>
+        </div>
+        <div id="footerContent">
+            {%block page_foot%}
+                Page <pdf:pagenumber>
+            {%endblock%}
+        </div>
+    </body>
+</html>
