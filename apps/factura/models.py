@@ -24,7 +24,8 @@ class FacturaInterna(models.Model):
         super(FacturaInterna, self).save(*args, **kwargs)
 
     def actualitza_estat(self):
-        if self.pagat == self.quantitat + self.descompte:
+        print self.pagat + self.descompte
+        if self.quantitat == self.pagat + self.descompte:
             self.estat = True
         else:
             self.estat = False
@@ -66,6 +67,7 @@ class FacturaExterna(models.Model):
     quantitat = models.DecimalField(max_digits=5, decimal_places=2,null=True,blank=True)
     pagat = models.DecimalField(max_digits=5, decimal_places=2,null=True,blank=True)
     comentari = models.CharField(max_length=200,null=True,blank=True)
+    pdf = models.FileField(null=True,blank=True,upload_to='factures')
 
     def __unicode__(self):
         return u'%s / %s' % (self.tercer, self.referencia)

@@ -40,6 +40,7 @@ def genera_factures(request):
         if tipus.nom not in data: data[tipus.nom] = {}
         for tercer in Tercer.objects.filter(tipus=tipus.pk):
             factura = FacturaInterna()
+            factura.quantitat = 0
             if tercer.nom not in data[tipus.nom]: data[tipus.nom][tercer.nom] = []
             for c in Contracte.objects.filter(actiu=True,tercer=tercer.pk):
                 duracio = timedelta(days=c.periode.periode)
