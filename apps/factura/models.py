@@ -12,7 +12,7 @@ class FacturaInterna(models.Model):
     contracte = models.ManyToManyField(Contracte)
     quantitat = models.DecimalField(max_digits=10, decimal_places=2,null=True,blank=True)
     descompte = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    pagat = models.DecimalField(max_digits=5, decimal_places=2,null=True,blank=True)
+    pagat = models.DecimalField(max_digits=5, decimal_places=2,null=True,blank=True, default=0)
     comentari = models.CharField(max_length=200,null=True,blank=True)
 
     def __unicode__(self):
@@ -24,7 +24,6 @@ class FacturaInterna(models.Model):
         super(FacturaInterna, self).save(*args, **kwargs)
 
     def actualitza_estat(self):
-        print self.pagat + self.descompte
         if self.quantitat == self.pagat + self.descompte:
             self.estat = True
         else:
