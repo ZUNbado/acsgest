@@ -9,8 +9,6 @@ from datetime import timedelta, date
 
 
 # TEST PDF
-import cStringIO as StringIO
-import ho.pisa as pisa
 from django.template.loader import get_template
 from django.template import Context
 #from django.http import HttpResponse
@@ -18,6 +16,8 @@ from cgi import escape
 from django.shortcuts import get_object_or_404
 
 def render_to_pdf(template_src, context_dict):
+    import cStringIO as StringIO
+    import ho.pisa as pisa
     template = get_template(template_src)
     context = Context(context_dict)
     html  = template.render(context)

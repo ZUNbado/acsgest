@@ -42,6 +42,8 @@ INSTALLED_APPS = (
     'apps.servei',
     'apps.tercer',
     'apps.soci',
+    'grappelli',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
