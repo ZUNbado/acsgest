@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^api/', include(router.urls)),
 #    url(r'^$', include('apps.public.urls')),
     url(r'^public/', include('apps.public.urls')),
+    url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^factura/', include('apps.factura.urls')),
 ) + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
