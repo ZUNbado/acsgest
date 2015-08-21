@@ -9,14 +9,14 @@ from django.conf import settings
 from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 
-from apps.tercer.viewsets import TercerViewSet
-router.register(r'tercer', TercerViewSet)
+api_models = [
+        ( 'apps.tercer.viewsets', 'TercerViewSet', 'tercer' ),
+        ( 'apps.caixa.viewsets', 'CaixaViewSet', 'caixa' ),
+        ]
+for (module, model, route) in api_models:
+    router.register(route, getattr(__import__(module, fromlist=[model]), model)) 
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'acsgest.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
     url(r'^$', RedirectView.as_view(url='/admin')),
     url(r'^api/', include(router.urls)),
 #    url(r'^$', include('apps.public.urls')),
