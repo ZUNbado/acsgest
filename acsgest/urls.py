@@ -24,4 +24,5 @@ urlpatterns = patterns('',
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^factura/', include('apps.factura.urls')),
+    url(r'^caixa/', include('apps.caixa.urls')),
 ) + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

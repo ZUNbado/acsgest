@@ -1,0 +1,33 @@
+{% for year, months in data.items %}
+<h1>Any: {{ year }} - Total: {{ months.total }}</h1>
+{% for month, month_es in months.months.items %}
+<h2>Mes: {{ month }}</h2>
+<table>
+        <tr><th>Tipus</th><th>Total</th><th>Llista</th></tr>
+        {% for tipus, dades in month_es.es.items %}
+        <tr>
+                <td>{{ tipus|title }}</td>
+                <td>{{ dades.total }}</td>
+                <td>
+                        <ul>
+                        {% for es in dades.es %}
+                        <li>
+                        {% if tipus == 'donacio' %}
+                            {{ es.donacio.comentari }}
+                        {% elif tipus == 'factura_externa' %}
+                        {{ es.factura_externa.tercer }} ( {{ es.factura_externa.referencia }} )
+                        {% elif tipus == 'factura_interna' %}
+                        {{ es.factura_interna.tercer }} ( {{ es.factura_interna.serveis }} )
+                        {% else %}
+                            {{ es.referencia }}
+                        {% endif %}
+                        </li>
+                        {% endfor %}
+                        </ul>
+                </td>
+        </tr>
+        {% endfor %}
+        <tr><td><b>Total</b></td><td>{{ month_es.total }}</td></td></td></tr>
+</table>
+{% endfor %}
+{% endfor %}
