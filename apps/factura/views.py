@@ -46,7 +46,7 @@ def genera_factures(request):
                 duracio = timedelta(days=c.periode.periode)
                 afegir_contracte = True
                 if c.alta is None:
-                    factura.cracio = date.today
+                    factura.creacio = date.today
                 else:
                     factura.creacio = c.alta
 
