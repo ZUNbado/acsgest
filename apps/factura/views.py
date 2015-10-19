@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
+from django.shortcuts import render
 
 from ..contracte.models import Contracte
 from .models import FacturaInterna
@@ -69,6 +70,23 @@ def genera_factures(request):
     })
 
     return HttpResponse(template.render(context))
+
+def view_factura(request, idFactura):
+    factura = get_object_or_404(FacturaInterna, pk=int(idFactura))
+    serveis = {}
+    tercer = None
+    for c in factura.contracte.all():
+        if not tercer:
+            tercer = c.tercer
+        for s in c.serveis.all():
+            if c.descompte != 0:
+                total = ((s.preu * c.multi) - ((s.preu * c.multi * c.descompte) / 100))
+            else:
+                total = (s.preu * c.multi)
+            servei = { 'nom': s.nom, 'preu': s.preu, 'periode': c.periode, 'total': total, 'descompte': c.descompte }
+            if s.pk not in serveis: serveis[s.pk]=servei
+
+    return render(request, 'factura/view.html', { 'serveis' : serveis, 'factura' : factura, 'tercer' : tercer })
 
 def descarregar_factura(request, idFactura):
     factura = get_object_or_404(FacturaInterna, pk=int(idFactura))
