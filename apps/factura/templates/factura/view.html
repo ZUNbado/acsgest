@@ -2,40 +2,73 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>My Title</title>
+        <title>Factura {{ factura.referencia }}</title>
+        <link rel="stylesheet" type="text/css" href="{% static "css/factura.css" %}">
     </head>
     <body>
-        <div>
-                <table>
-                    <tr><td>Dades ACS</td><td>LOGO<img style="zoom: 80%;" src="{% static "/factura/img/logo_acs_mini.jpg" %}" /></td>
+        <div class="factura-container">
+                <table class="factura">
+                    <tr>
+                        <td>Dades ACS</td>
+                        <td><img style="zoom: 80%;" src="{% static "img/logo_acs_mini.png" %}" /></td>
+                    </tr>
                 </table>
-                <br /><br />
-                <table>
-                        <tr><td>Dades soci</td><td>Dades Quota</td></tr>
+
+                <table class="factura">
+                    <thead>
                         <tr>
-                                <td>
-                                        <table>
-                                                <tr><td>Nom:</td><td><td>{{ tercer.nom }}</td>
-                                                <tr><td>Cognoms:</td><td><td>{{ tercer.cognom1 }} {{ tercer.cognom2 }}</td>
-                                                <tr><td>DNI:</td><td><td>{{ tercer.dni }}</td>
-                                        </table>
-                                </td>
-                                <td>
-                                        <table>
-                                                <tr><td>Referencia</td><td>{{ factura.referencia }}</td></tr>
-                                                <tr><td>Data</td><td>{{ factura.creacio }}</td></tr>
-                                                <tr><td>Comentari</td><td>{{ factura.comentari }}</td></tr>
-                                        </table>
-                                </td>
+                            <th colspan="2">Dades soci</th>
+                            <th colspan="2">Dades Quota</th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nom:</td>
+                            <td>{{ tercer.nom }}</td>
+                            <td>Referencia</td>
+                            <td>{{ factura.referencia }}</td>
+                        </tr>
+                        <tr>
+                            <td>Cognoms:</td>
+                            <td>{{ tercer.cognom1 }} {{ tercer.cognom2 }}</td>
+                            <td>Data</td>
+                            <td>{{ factura.creacio }}</td>
+                        </tr>
+                        <tr>
+                            <td>DNI:</td>
+                            <td>{{ tercer.dni }}</td>
+                            <td>Comentari</td>
+                            <td>{{ factura.comentari }}</td>
+                        </tr>
+                    </tbody>
                 </table>
-                <br /><br />
-                <table>
-                        <tr><td>Quota</td><td>Preu</td><td>Periode</td><td>Descompte</td><td>Total</td></tr>
+
+                <table class="factura">
+                    <thead>
+                        <tr>
+                            <th>Quota</th>
+                            <th>Preu</th>
+                            <th>Periode</th>
+                            <th>Descompte</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {% for key, s in serveis.items %}
-                        <tr><td>{{ s.nom }}</td><td>{{ s.preu }}</td><td>{{ s.periode }}</td><td>{{ s.descompte }}</td><td>{{ s.total }}</td></tr>
+                            <tr>
+                                <td>{{ s.nom }}</td>
+                                <td>{{ s.preu }}</td>
+                                <td>{{ s.periode }}</td>
+                                <td>{{ s.descompte }}</td>
+                                <td>{{ s.total }}</td>
+                            </tr>
                         {% endfor %}
-                        <tr><td colspan="3">&nbsp;</td><td>Total:</td><td>{{ factura.quantitat }}</td></tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>Total:</td>
+                            <td>{{ factura.quantitat }}</td>
+                        </tr>
+                    </tbody>
                 </table>
         </div>
     </body>
