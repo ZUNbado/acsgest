@@ -19,7 +19,6 @@ class Contracte(models.Model):
     descompte = models.DecimalField(max_digits=5, default=0, decimal_places=2,null=True,blank=True)
     alta = models.DateField(null=True,blank=True)
     actiu = models.BooleanField(default=True)
-    expired = models.BooleanField(default=False)
 
     def serveis_to_string(self):
         srv = []
