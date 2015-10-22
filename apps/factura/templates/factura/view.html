@@ -7,10 +7,14 @@
     </head>
     <body>
         <div class="factura-container">
-                <table class="factura">
+                <table class="factura provider-info">
                     <tr>
-                        <td>Dades ACS</td>
-                        <td><img style="zoom: 80%;" src="{% static "img/logo_acs_mini.png" %}" /></td>
+                        <td>
+                            <p>AACS. Associació Alternatives Computacionals per la Societat.</p>
+                            <p>Adreça:</p>
+                            <p>NIF:</p>
+                        </td>
+                        <td class="logo"><img src="{% static "img/logo_acs_mini.png" %}" /></td>
                     </tr>
                 </table>
 
@@ -57,16 +61,16 @@
                         {% for key, s in serveis.items %}
                             <tr>
                                 <td>{{ s.nom }}</td>
-                                <td>{{ s.preu }}</td>
+                                <td>{{ s.preu }} &euro;</td>
                                 <td>{{ s.periode }}</td>
                                 <td>{{ s.descompte }}</td>
-                                <td>{{ s.total }}</td>
+                                <td>{{ s.total }} &euro;</td>
                             </tr>
                         {% endfor %}
                         <tr>
                             <td colspan="3"></td>
-                            <td>Total:</td>
-                            <td>{{ factura.quantitat }}</td>
+                            <td class="total">Total:</td>
+                            <td class="total">{{ factura.quantitat }} &euro;</td>
                         </tr>
                     </tbody>
                 </table>
