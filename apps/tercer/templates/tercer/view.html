@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Tercer {{ tercer.nom }}</title>
+    </head>
+    <body>
+    <h3>Contacte</h3>
+    <table>
+            <tr>
+                    <td>Nom</td>
+                    <td>{{ tercer.nom }}</td>
+            </tr>
+    </table>
+    <h3>Contractes</h3>
+    <table>
+            <tr>
+                    <td>Serveis</td>
+                    <td>Periode</td>
+                    <td>Comentari</td>
+                    <td>Alta</td>
+                    <td>Factures</td>
+            </tr>
+            {% for contracte in info %}
+            <tr>
+                    <td>{% for servei in contracte.contracte.serveis.all %}{{ servei }}{% endfor %}</td>
+                    <td>{{ contracte.contracte.periode }}</td>
+                    <td>{{ contracte.contracte.comentari }}</td>
+                    <td>{{ contracte.contracte.alta }}</td>
+                    <td>
+                            <table>
+                                    <tr>
+                                            <td>
+                                            </td>
+                                    </tr>
+                            {% for factura in contracte.factures %}
+                                <tr>
+                                    <td>{{ factura.factura.creacio}}</td>
+                                    <td>
+                                            <table>
+                                                    {% for es in factura.es %}
+                                                    <tr>
+                                                            <td>{{ es.quantitat }}</Td>
+                                                    </tr>
+                                                    {% endfor %}
+                                            </table>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </table>
+                    </td>
+                    
+            </tr>
+            {% endfor %}
+    </table>
+    </body>
+</html>
