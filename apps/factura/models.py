@@ -28,6 +28,14 @@ class FacturaInterna(models.Model):
             self.estat = True
         else:
             self.estat = False
+    
+    def get_tercer(self):
+        tercers = dict()
+        for c in self.contracte.all():
+            if c.tercer.pk not in tercers:
+                tercers[c.tercer.pk] = c.tercer
+        return tercers
+
 
     def tercer(self):
         tercers = []
@@ -35,6 +43,7 @@ class FacturaInterna(models.Model):
             if c.tercer.nom not in tercers:
                 tercers.append(c.tercer.nom)
         return u','.join(tercers)
+
     def serveis(self):
         serveis = []
         for c in self.contracte.all():
