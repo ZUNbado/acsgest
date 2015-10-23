@@ -1,0 +1,52 @@
+{% load staticfiles %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Rebut {{ es.referencia }}</title>
+        <link rel="stylesheet" type="text/css" href="{% static "css/factura.css" %}">
+    </head>
+    <body>
+        <div class="factura-container">
+                <table class="factura">
+                    <tr>
+                        <td>Dades ACS</td>
+                        <td><img style="zoom: 80%;" src="{% static "img/logo_acs_mini.png" %}" /></td>
+                    </tr>
+                </table>
+
+                <table class="factura">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Dades soci</th>
+                            <th colspan="2">Dades rebut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nom:</td>
+                            <td>{{ tercer.nom }}</td>
+                            <td>Referencia</td>
+                            <td>{{ es.referencia }}</td>
+                        </tr>
+                        <tr>
+                            <td>Cognoms:</td>
+                            <td>{{ tercer.cognom1 }} {{ tercer.cognom2 }}</td>
+                            <td>Data</td>
+                            <td>{{ es.data }}</td>
+                        </tr>
+                        <tr>
+                            <td>DNI:</td>
+                            <td>{{ tercer.dni }}</td>
+                            <td>Comentari</td>
+                            <td>{{ es.comentari }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td>Quantitat</td>
+                            <td>{{ es.quantitat }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+    </body>
+</html>
