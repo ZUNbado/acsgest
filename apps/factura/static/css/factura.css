@@ -10,5 +10,24 @@ table.factura {
 
 table.factura th {
     text-align: left;
-    background-color: #c6c6c6;
+    background-color: #343538;
+    color: #fff;
+}
+
+table.factura th ,
+table.factura td {
+    padding: 5px;
+}
+
+td.total {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+td.logo {
+    text-align: right;
+}
+
+.provider-info td {
+    font-weight: bold;
 }
