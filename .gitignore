@@ -58,3 +58,5 @@ media/
 # local database
 db.sqlite3
 my.cnf
+*.swp
+acsgest/local_settings.py

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os, warnings
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 )
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -112,4 +113,24 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         ),
 }
+
+A_NIF = 'NIF'
+A_DIR = 'DIR'
+A_NOM = 'NOM'
+A_LOGO = ''
+
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+TEMPLATE_CONTEXT_PROCESSORS += ('settings_context_processor.context_processors.settings', )
+INSTALLED_APPS += ('settings_context_processor', )
+TEMPLATE_VISIBLE_SETTINGS = (
+        'A_NIF',
+        'A_DIR',
+        'A_NOM',
+        'A_LOGO',
+        )
+
+if os.path.exists(os.path.join(BASE_DIR, "acsgest/local_settings.py")):
+    from .local_settings import *
+else:
+    warnings.warn("local_settings.py not found, using defaults")
 

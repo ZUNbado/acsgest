@@ -10,11 +10,11 @@
                 <table class="factura provider-info">
                     <tr>
                         <td>
-                            <p>AACS. Associació Alternatives Computacionals per la Societat.</p>
-                            <p>Adreça:</p>
-                            <p>NIF:</p>
+                                <p>{{ A_NOM }}</p>
+                            <p>Adreça: {{ A_DIR }}</p>
+                            <p>NIF: {{ A_NIF }}</p>
                         </td>
-                        <td class="logo"><img src="{% static "img/logo_acs_mini.png" %}" /></td>
+                        <td class="logo"><img src="{% static '' %}{{ A_LOGO }}" /></td>
                     </tr>
                 </table>
 
