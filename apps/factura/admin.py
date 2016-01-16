@@ -22,7 +22,7 @@ class FacturaInternaAdmin(admin.ModelAdmin):
 class FacturaExternaAdmin(admin.ModelAdmin):
     inlines = [ ESInline, ]
     list_display = [ 'id', 'tercer', 'referencia', 'creacio', 'quantitat', 'pagat', 'estat', 'pagament' ]
-    list_filter = [ 'estat' ]
+    list_filter = [ 'estat', 'tercer' ]
     ordering = [ '-creacio' ]
 
 
